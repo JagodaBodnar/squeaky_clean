@@ -2,7 +2,7 @@ public class SqueakyClean {
     public static void main(String[] args) {
         String cleanedString = SqueakyClean.cleanSpaces("my   Id");
         System.out.printf("Replace any spaces encountered with underscores: %s%n", cleanedString);
-        cleanedString = SqueakyClean.cleanControlChars("my\0Id");
+        cleanedString = SqueakyClean.cleanControlChars("my\0\r\u007FId");
         System.out.printf("Replace control characters with the upper case string \"CTRL\": %s%n", cleanedString);
         cleanedString = SqueakyClean.cleanKebabCase("à-ḃç");
         System.out.printf("Convert kebab-case to camelCase: %s%n", cleanedString);
@@ -24,7 +24,7 @@ public class SqueakyClean {
     }
 
     public static String cleanControlChars(String string) {
-        return string.replaceAll("\0", "CTRL");
+        return string.replaceAll("\\p{C}", "CTRL");
     }
 
     public static String cleanKebabCase(String string) {
